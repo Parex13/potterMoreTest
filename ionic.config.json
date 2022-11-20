@@ -1,0 +1,7 @@
+{
+  "name": "harryPotter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
