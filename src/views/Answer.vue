@@ -1,15 +1,20 @@
 <template>
-    <ion-radio value="{{ answerValue }}" />{{ content }} <br>
+    <ion-item>
+        <ion-label>{{ content }}</ion-label>
+        <ion-radio slot=start :value=answerValue></ion-radio> <br>
+    </ion-item>
 </template>
   
 <script lang="ts">
-import { IonRadio } from '@ionic/vue';
+import { IonRadio, IonItem, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'Answer',
     components: {
         IonRadio,
+        IonItem,
+        IonLabel
     },
     props: {
         answerValue: {
@@ -26,6 +31,8 @@ export default defineComponent({
 </script>
   
 <style scoped>
-
+ion-item {
+    --background-hover: none;
+}
 </style>
   

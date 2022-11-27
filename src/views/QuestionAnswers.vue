@@ -2,14 +2,17 @@
     <ion-text mode="md">
         <h2>{{ id }} - {{ content }}</h2>
     </ion-text>
-    <ion-radio-group>
-        <Answer v-for="(answer, index) in answers" :key=index :answerValue=index :content=answer></Answer>
-    </ion-radio-group>
+    <ion-list>
+        <ion-radio-group>
+            <Answer v-for="(answer, index) in answers" :key="index" :answerValue="index" :content="answer" />
+        </ion-radio-group>
+    </ion-list>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonRadioGroup, IonText } from '@ionic/vue';
+import { IonRadioGroup, IonText, IonList } from '@ionic/vue';
+import { PropType } from 'vue';
 import Answer from './Answer.vue';
 
 export default defineComponent({
@@ -17,13 +20,14 @@ export default defineComponent({
     components: {
         IonRadioGroup,
         Answer,
-        IonText
+        IonText,
+        IonList
     },
     props: {
         id: { required: true, type: Number },
         content: String,
         answers: {
-            type: Array.of(String),
+            type: Array as PropType<string[]>,
             default: () => [
                 "Default Answer"
             ]
