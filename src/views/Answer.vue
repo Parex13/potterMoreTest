@@ -1,7 +1,8 @@
 <template>
     <ion-item>
-        <ion-label>{{ content }}</ion-label>
-        <ion-radio slot=start :value=answerValue></ion-radio> <br>
+        <input type="radio" slot=start :id="'response' + answerValue" name="answer" :value=answerValue
+            @focus="$emit('update:pick', $event.target.value)" />
+        <ion-label :for="'response' + answerValue">{{ content }}</ion-label> <br>
     </ion-item>
 </template>
   
@@ -17,16 +18,15 @@ export default defineComponent({
         IonLabel
     },
     props: {
-        answerValue: {
-            type: Number,
-            default: 0
-        },
+        answerValue: String,
+        pick: String,
         content: String,
         isCheck: {
             type: Boolean,
             default: false
         }
-    }
+    },
+    emits: ['update:pick']
 });
 </script>
   
@@ -34,5 +34,4 @@ export default defineComponent({
 ion-item {
     --background-hover: none;
 }
-</style>
-  
+</style>  

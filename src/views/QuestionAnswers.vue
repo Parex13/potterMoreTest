@@ -2,11 +2,13 @@
     <ion-text mode="md">
         <h2>{{ id }} - {{ content }}</h2>
     </ion-text>
-    <ion-list>
-        <ion-radio-group>
-            <Answer v-for="(answer, index) in answers" :key="index" :answerValue="index" :content="answer" />
-        </ion-radio-group>
-    </ion-list>
+    <fieldset>
+        <ion-list>
+            <Answer v-for="(answer, index) in answers" :key="index" :answerValue="id + '-' + (index + 1)"
+                :content="answer" v-model:pick="picked" />
+        </ion-list>
+    </fieldset>
+    Answer picked : {{ picked }} <br>
 </template>
 
 <script lang="ts">
@@ -31,6 +33,12 @@ export default defineComponent({
             default: () => [
                 "Default Answer"
             ]
+        },
+        picked: String
+    },
+    data() {
+        return {
+            picked: ''
         }
     }
 });     

@@ -7,18 +7,17 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <!-- <Question :=question />
-      <ion-radio-group>
-        <Answer v-for:="answer in answers" :="answer" />
-      </ion-radio-group> -->
-      <QuestionAnswers v-for="(questionAnswers, index) in questionsAnswers" :key=index :id=questionAnswers.id
-        :content="questionAnswers.content" :answers="questionAnswers.answers" />
+      <form v-on:submit="onSubmit" id="main-form">
+        <QuestionAnswers v-for="(questionAnswers, index) in questionsAnswers.slice(0, 2)" :key=index :id="index + 1"
+          :content="questionAnswers.content" :answers="questionAnswers.answers" :picked="response" />
+        <button type='submit' form="main-form">Your Howard's house is ...</button><br>
+      </form>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonRadio, IonRadioGroup, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import QuestionAnswers from './QuestionAnswers.vue';
 
@@ -30,13 +29,25 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    QuestionAnswers
+    QuestionAnswers,
+    IonButton,
+    IonRadio,
+    IonRadioGroup,
+    IonLabel
+  },
+  methods: {
+    onSubmit(e: Event) {
+      console.log((e.target));
+      e.preventDefault();
+    }
   },
   data() {
     return {
+      response: String,
+      totalResponses: null,
       questionsAnswers: [
         {
-          id: 1,
+
           content: "Sous quel nom préférerais-tu entrer dans l'histoire ?",
           answers:
             [
@@ -47,8 +58,9 @@ export default defineComponent({
             ],
         },
         {
-          id: 2,
+
           content: "Tu détesterais le plus qu'on te qualifie de...",
+
           answers:
             [
               " Banal",
@@ -58,7 +70,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 3,
+
           content: "S'il te fallait faire un choix, tu préférerais inventer une potion te garantissant...",
           answers:
             [
@@ -69,7 +81,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 4,
+
           content: "De quelle manière préférerais-tu que les gens se souviennent de toi après ta mort ?",
           answers:
             [
@@ -80,7 +92,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 5,
+
           content: "Une fois tous les cent ans, la plante à Pipaillon produit des fleurs qui changent de parfum pour plaire à l'imprudent qu'elle souhaite attirer. Si cette plante souhaitait t'appâter, quelle odeur devrait-elle dégager ?",
           answers:
             [
@@ -91,7 +103,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 6,
+
           content: "Il y a quatre boîtes devant toi. Laquelle essaies-tu d'ouvrir ?",
           answers:
             [
@@ -102,7 +114,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 7,
+
           content: "Quel instrument de musique aimes-tu le plus entendre ?",
           answers:
             [
@@ -113,7 +125,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 8,
+
           content: "Quatre coupes remplies d'un liquide mystérieux sont placées devant toi. Laquelle choisis-tu de boire ?",
           answers:
             [
@@ -124,7 +136,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 9,
+
           content: "Tu entres dans un jardin enchanté rempli de choses mystérieuses. Laquelle seras-tu le plus curieux d'examiner en premier lieu ?",
           answers:
             [
@@ -135,7 +147,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 10,
+
           content: "Un troll a fait irruption dans le bureau du directeur de Poudlard. Il est sur le point de pulvériser, écraser et déchirer plusieurs objets et trésors irremplaçables, dont notamment un remède contre la Dragoncelle que le directeur a pratiquement fini de mettre au point, les carnets scolaires de tous les élèves de Poudlard depuis 1 000 ans et un mystérieux livre écrit à la main, comportant d'étranges textes en runes, qui a très probablement appartenu à Merlin. Dans quel ordre tentes-tu de sauver ces objets de la massue du troll si tu en as la possibilité ?",
           answers:
             [
@@ -148,7 +160,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 11,
+
           content: "Tu préférerais que les autres...",
           answers:
             [
@@ -161,7 +173,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 12,
+
           content: "Qu'est-ce que tu as le plus de mal à supporter ?",
           answers:
             [
@@ -173,7 +185,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 13,
+
           content: "Qu'est-ce que tu as le plus hâte d'apprendre à Poudlard ?",
           answers:
             [
@@ -186,7 +198,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 14,
+
           content: "Qu'est-ce que tu as le plus hâte d'apprendre à Poudlard ?",
           answers:
             [
@@ -199,7 +211,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 15,
+
           content: "Quelle créature aimerais-tu le plus étudier ?",
           answers:
             [
@@ -213,7 +225,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 16,
+
           content: "Un élève de ta maison a triché pendant les examens de Poudlard en se servant d'une plume ensorcelée. Grâce à son stratagème, il se retrouve premier de la classe en Sortilèges et tu n'es que deuxième. Le professeur Flitwick soupçonne quelque chose de louche. Il te prend à part à la fin du cours pour te demander si ton camarade a utilisé ou non une plume interdite. Que fais-tu ?",
           answers:
             [
@@ -224,7 +236,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 17,
+
           content: "Quel chemin te tente le plus ?",
           answers:
             [
@@ -235,7 +247,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 18,
+
           content: "Un Moldu t'aborde en pleine rue en te lançant qu'il est persuadé que tu es un sorcier ou une sorcière. Que fais-tu ?",
           answers:
             [
@@ -246,7 +258,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 19,
+
           content: "Un Moldu t'aborde en pleine rue en te lançant qu'il est persuadé que tu es un sorcier ou une sorcière. Que fais-tu ?",
           answers:
             [
@@ -257,7 +269,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 20,
+
           content: "Deux de tes amis et toi devez traverser un pont gardé par un troll des rivières. Avant de vous laisser passer, celui-ci insiste pour se battre avec l'un de vous. Que fais-tu ?",
           answers:
             [
@@ -268,7 +280,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 21,
+
           content: "Quel cauchemar te ferait le plus peur ?",
           answers:
             [
@@ -279,7 +291,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 22,
+
           content: "Quel cauchemar te ferait le plus peur ?",
           answers:
             [
@@ -288,7 +300,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 23,
+
           content: "Forêt ou rivière ?",
           answers:
             [
@@ -297,7 +309,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 24,
+
           content: "Aube ou crépuscule ?",
           answers:
             [
@@ -306,7 +318,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 25,
+
           content: "Noir ou blanc",
           answers:
             [
@@ -315,7 +327,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 26,
+
           content: "Gauche ou droite",
           answers:
             [
@@ -324,7 +336,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 27,
+
           content: "Pile ou face",
           answers:
             [
@@ -333,7 +345,7 @@ export default defineComponent({
             ],
         },
         {
-          id: 28,
+
           content: "Si tu étais accepté à Poudlard, quel animal de compagnie choisirais-tu de prendre avec toi ?",
           answers: [
             "Un chat tigré",
