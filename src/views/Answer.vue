@@ -1,19 +1,18 @@
 <template>
     <ion-item>
         <input type="radio" slot=start :id="'response' + answerValue" name="answer" :value=answerValue
-            @focus="$emit('update:pick', $event.target.value)" />
-        <ion-label :for="'response' + answerValue">{{ content }}</ion-label> <br>
+            @focus="$emit('updatePick', $event.target.value)" />
+        <ion-label class="ion-text-wrap" :for="'response' + answerValue">{{ content }}</ion-label> <br>
     </ion-item>
 </template>
   
 <script lang="ts">
-import { IonRadio, IonItem, IonLabel } from '@ionic/vue';
+import { IonItem, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'Answer',
     components: {
-        IonRadio,
         IonItem,
         IonLabel
     },
@@ -26,12 +25,13 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['update:pick']
+    emits: ['updatePick']
 });
 </script>
   
 <style scoped>
 ion-item {
     --background-hover: none;
+    --background: #f8f8ff;
 }
 </style>  

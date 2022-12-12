@@ -1,26 +1,27 @@
 <template>
-    <ion-text mode="md">
-        <h2>{{ id }} - {{ content }}</h2>
-    </ion-text>
-    <fieldset>
-        <ion-list>
-            <Answer v-for="(answer, index) in answers" :key="index" :answerValue="id + '-' + (index + 1)"
-                :content="answer" v-model:pick="picked" />
-        </ion-list>
-    </fieldset>
-    Answer picked : {{ picked }} <br>
+    <div id=main-content>
+        <ion-text mode="md">
+            <h2>{{ id }} - {{ content }}</h2>
+        </ion-text>
+        <fieldset>
+            <ion-list lines="none">
+                <Answer v-for="(answer, index) in answers" :key="index" :answerValue="id + '-' + (index + 1)"
+                    :content="answer" @update-pick=udpatePick />
+            </ion-list>
+        </fieldset>
+    </div>
+
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { IonRadioGroup, IonText, IonList } from '@ionic/vue';
-import { PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { IonText, IonList } from '@ionic/vue';
 import Answer from './Answer.vue';
+import { dynamicResponses } from '../common';
 
 export default defineComponent({
     name: 'QuestionAnswers',
     components: {
-        IonRadioGroup,
         Answer,
         IonText,
         IonList
@@ -34,12 +35,32 @@ export default defineComponent({
                 "Default Answer"
             ]
         },
-        picked: String
+    },
+    methods: {
+        udpatePick(r: string) {
+            dynamicResponses[Number(r.split('-')[0])] = r.split('-')[1];
+            console.log(dynamicResponses);
+        }
     },
     data() {
         return {
-            picked: ''
+            picked: '',
+            dynamicResponses
         }
     }
 });     
 </script>
+<style lang="scss" scoped>
+div#main-content {
+    height: 550px;
+    display: grid;
+    align-content: center;
+
+    >fieldset {
+        ion-list {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+}
+</style>
