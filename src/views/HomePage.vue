@@ -9,7 +9,7 @@
 
     <ion-content scroll-y="false">
       <swiper>
-        <swiper-slide v-for="(questionAnswers, index) in questionsAnswers.slice(0, 2)" :key=index>
+        <swiper-slide v-for="(questionAnswers, index) in questionsAnswers" :key=index>
           <QuestionAnswers :id="index + 1" :content="questionAnswers.content" :answers="questionAnswers.answers" />
         </swiper-slide>
         <ion-toolbar>
@@ -18,18 +18,18 @@
         </ion-toolbar>
       </swiper>
     </ion-content>
-    <ion-button :disabled="dynamicResponses.length != 3" id="resultButton">{{ resultButtonContent
-    }}</ion-button>
+    <ion-progress-bar :value=0></ion-progress-bar>
     <ion-footer class="ion-no-border">
       <div class="content">
-        <ion-progress-bar :value="dynamicResponses.length / 100"></ion-progress-bar>
+        <ion-button expand="block" :disabled="true" id="resultButton">{{ resultButtonContent
+        }}</ion-button>
       </div>
     </ion-footer>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter, IonProgressBar } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import QuestionAnswers from './QuestionAnswers.vue';
 import ButtonSlide from './ButtonSlide.vue';
@@ -39,6 +39,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
 import 'swiper/css';
+
+
 
 export default defineComponent({
   name: 'HomePage',
@@ -54,7 +56,8 @@ export default defineComponent({
     IonButton,
     ButtonSlide,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    IonProgressBar
   },
   data() {
     return {
@@ -64,7 +67,7 @@ export default defineComponent({
       resultButtonContent,
       isTestFinish: true
     }
-  }
+  },
 });
 </script>
 <style lang="scss" scoped>

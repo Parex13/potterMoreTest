@@ -3,19 +3,19 @@
         <ion-text mode="md">
             <h2>{{ id }} - {{ content }}</h2>
         </ion-text>
-        <fieldset>
+        <ion-radio-group>
             <ion-list lines="none">
                 <Answer v-for="(answer, index) in answers" :key="index" :answerValue="id + '-' + (index + 1)"
                     :content="answer" @update-pick=udpatePick />
             </ion-list>
-        </fieldset>
+        </ion-radio-group>
     </div>
 
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { IonText, IonList } from '@ionic/vue';
+import { IonText, IonList, IonRadioGroup } from '@ionic/vue';
 import Answer from './Answer.vue';
 import { dynamicResponses } from '../common';
 
@@ -24,7 +24,8 @@ export default defineComponent({
     components: {
         Answer,
         IonText,
-        IonList
+        IonList,
+        IonRadioGroup
     },
     props: {
         id: { required: true, type: Number },
@@ -38,7 +39,8 @@ export default defineComponent({
     },
     methods: {
         udpatePick(r: string) {
-            dynamicResponses[Number(r.split('-')[0])] = r.split('-')[1];
+            // @ts-ignore
+            dynamicResponses[Number(r.split('-')[0])] = Number(r.split('-')[1]);
             console.log(dynamicResponses);
         }
     },
@@ -56,11 +58,10 @@ div#main-content {
     display: grid;
     align-content: center;
 
-    >fieldset {
-        ion-list {
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-        }
+    ion-list {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
     }
+
 }
 </style>
