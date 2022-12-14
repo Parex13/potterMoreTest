@@ -39,15 +39,28 @@ export default defineComponent({
     },
     methods: {
         udpatePick(r: string) {
-            // @ts-ignore
-            dynamicResponses[Number(r.split('-')[0])] = Number(r.split('-')[1]);
-            console.log(dynamicResponses);
+            const qValue = Number(r.split('-')[0]);
+            const aValue = Number(r.split('-')[1]);
+            let questionIsInclude = false;
+            //ON effectue des operations sur le Proxy
+            this.dynamicResponses.map((qa) => {
+                if (qa.idQuestion == qValue) {
+                    qa.idAnswer = aValue;
+                    questionIsInclude = true;
+                }
+            })
+            if (!questionIsInclude) {
+                this.dynamicResponses.push({
+                    idQuestion: qValue,
+                    idAnswer: aValue
+                })
+            }
         }
     },
     data() {
         return {
-            picked: '',
-            dynamicResponses
+            // Cette objet fait reference a la constant 'dynamicResponses' du fichier common, c'est un Proxy
+            dynamicResponses,
         }
     }
 });     

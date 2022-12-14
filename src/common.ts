@@ -1,4 +1,7 @@
-export const dynamicResponses: { [idQuestion: number]: number }[] = [];
+export const dynamicResponses: {
+    idQuestion: number,
+    idAnswer: number
+}[] = [];
 export const appName = "Test Pottermore";
 export const resultButtonContent = "Your Howards's house is"
 export const questionsAnswers = [

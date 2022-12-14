@@ -7,21 +7,23 @@
       </div>
     </ion-header>
 
-    <ion-content scroll-y="false">
+    <ion-content :scroll-y="false">
       <swiper>
         <swiper-slide v-for="(questionAnswers, index) in questionsAnswers" :key=index>
           <QuestionAnswers :id="index + 1" :content="questionAnswers.content" :answers="questionAnswers.answers" />
         </swiper-slide>
         <ion-toolbar>
-          <ButtonSlide slot="start" id="prevButton" :isNext="false"></ButtonSlide>
+          <ButtonSlide slot="start" id="prevButton" :isNext="false">
+          </ButtonSlide>
           <ButtonSlide slot="end" id="nextButton" :isNext="true"></ButtonSlide>
         </ion-toolbar>
       </swiper>
     </ion-content>
-    <ion-progress-bar :value=0></ion-progress-bar>
+    <ion-progress-bar :value="dynamicResponses.length / questionsAnswers.length"></ion-progress-bar>
     <ion-footer class="ion-no-border">
       <div class="content">
-        <ion-button expand="block" :disabled="true" id="resultButton">{{ resultButtonContent
+        <ion-button expand="block" :disabled="dynamicResponses.length < questionsAnswers.length" id="resultButton">{{
+            resultButtonContent
         }}</ion-button>
       </div>
     </ion-footer>
@@ -65,7 +67,8 @@ export default defineComponent({
       questionsAnswers,
       dynamicResponses,
       resultButtonContent,
-      isTestFinish: true
+      isTestFinish: true,
+      count: 0
     }
   },
 });
