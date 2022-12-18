@@ -1,8 +1,15 @@
 <template>
     <div id=main-content>
-        <ion-text mode="md">
-            <h2>{{ id }} - {{ content }}</h2>
+        <ion-text>
+            <h2><a @click="canOpenPopover($event)">{{ id }} -
+                    {{ content.length > MAX_LENGTH_POPOVER
+                            ? content.slice(0, MAX_LENGTH_POPOVER).replace(/ \S*$/, '[...]') : content
+                    }}
+                </a></h2>
         </ion-text>
+        <ion-popover :is-open="isOpen" :event="event" @didDismiss="isOpen = false" size="cover">
+            <ion-content class="ion-padding">{{ content }}</ion-content>
+        </ion-popover>
         <ion-radio-group>
             <ion-list lines="none">
                 <Answer v-for="(answer, index) in answers" :key="index" :answerValue="id + '-' + (index + 1)"
@@ -15,9 +22,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { IonText, IonList, IonRadioGroup } from '@ionic/vue';
+import { IonText, IonList, IonRadioGroup, IonPopover, IonContent } from '@ionic/vue';
 import Answer from './Answer.vue';
 import { dynamicResponses } from '../common';
+
+const MAX_LENGTH_POPOVER = 85
 
 export default defineComponent({
     name: 'QuestionAnswers',
@@ -25,11 +34,13 @@ export default defineComponent({
         Answer,
         IonText,
         IonList,
-        IonRadioGroup
+        IonRadioGroup,
+        IonPopover,
+        IonContent
     },
     props: {
         id: { required: true, type: Number },
-        content: String,
+        content: { required: true, type: String },
         answers: {
             type: Array as PropType<string[]>,
             default: () => [
@@ -37,12 +48,21 @@ export default defineComponent({
             ]
         },
     },
+    data() {
+        return {
+            MAX_LENGTH_POPOVER,
+            // Cette objet fait reference a la constant 'dynamicResponses' du fichier common, c'est un Proxy
+            dynamicResponses,
+            isOpen: false,
+            event: null,
+        }
+    },
     methods: {
         udpatePick(r: string) {
             const qValue = Number(r.split('-')[0]);
             const aValue = Number(r.split('-')[1]);
             let questionIsInclude = false;
-            //ON effectue des operations sur le Proxy
+            //On effectue des operations sur le Proxy
             this.dynamicResponses.map((qa) => {
                 if (qa.idQuestion == qValue) {
                     qa.idAnswer = aValue;
@@ -55,12 +75,13 @@ export default defineComponent({
                     idAnswer: aValue
                 })
             }
-        }
-    },
-    data() {
-        return {
-            // Cette objet fait reference a la constant 'dynamicResponses' du fichier common, c'est un Proxy
-            dynamicResponses,
+        },
+        canOpenPopover(e: Event) {
+            if (this.content.length > MAX_LENGTH_POPOVER) {
+                //@ts-ignore
+                this.event = e
+                this.isOpen = true
+            }
         }
     }
 });     
@@ -70,6 +91,19 @@ div#main-content {
     height: 550px;
     display: grid;
     align-content: center;
+
+    ion-text {
+        margin: 0px 20px 0 20px;
+        text-align: justify;
+
+        a {
+            color: inherit;
+        }
+    }
+
+    ion-popover {
+        width: 80%;
+    }
 
     ion-list {
         padding-top: 0 !important;
