@@ -60,10 +60,14 @@ export default defineComponent({
 });
 </script>
   
-<style lang="scss">
+<style lang="scss" scoped>
 ion-item {
     --background-hover: none;
     --background: #f8f8ff;
     --ripple-color: transparent;
+}
+
+ion-popover {
+    --offset-x: 50px
 }
 </style>
