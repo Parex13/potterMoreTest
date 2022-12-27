@@ -24,7 +24,7 @@
 import { defineComponent, PropType } from 'vue';
 import { IonText, IonList, IonRadioGroup, IonPopover, IonContent } from '@ionic/vue';
 import Answer from './Answer.vue';
-import { dynamicResponses } from '../common';
+import { dynamicResponses, questionsAnswers } from '../common';
 
 const MAX_LENGTH_POPOVER = 85
 
@@ -65,16 +65,17 @@ export default defineComponent({
             //On effectue des operations sur le Proxy
             this.dynamicResponses.map((qa) => {
                 if (qa.idQuestion == qValue) {
-                    qa.idAnswer = aValue;
+                    qa.housesScore = questionsAnswers[qValue - 1].answersAndHouseScore[aValue - 1];
                     questionIsInclude = true;
                 }
             })
             if (!questionIsInclude) {
                 this.dynamicResponses.push({
                     idQuestion: qValue,
-                    idAnswer: aValue
+                    housesScore: questionsAnswers[qValue - 1].answersAndHouseScore[aValue - 1]
                 })
             }
+            console.log(this.dynamicResponses)
         },
         canOpenPopover(e: Event) {
             if (this.content.length > MAX_LENGTH_POPOVER) {

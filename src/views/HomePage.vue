@@ -10,7 +10,8 @@
     <ion-content :scroll-y="false">
       <swiper>
         <swiper-slide v-for="(questionAnswers, index) in questionsAnswers" :key=index>
-          <QuestionAnswers :id="index + 1" :content="questionAnswers.content" :answers="questionAnswers.answers" />
+          <QuestionAnswers :id="index + 1" :content="questionAnswers.content"
+            :answers="questionAnswers.answersAndHouseScore.map((obj) => { return obj.name })" />
         </swiper-slide>
         <ion-toolbar>
           <ButtonSlide slot="start" id="prevButton" :isNext="false">
@@ -70,7 +71,7 @@ export default defineComponent({
       isTestFinish: true,
       count: 0
     }
-  },
+  }
 });
 </script>
 <style lang="scss" scoped>
