@@ -3,8 +3,8 @@
         <ion-text>
             <h2><a @click="canOpenPopover($event)">{{ id }} -
                     {{ content.length > MAX_LENGTH_POPOVER
-                            ? content.slice(0, MAX_LENGTH_POPOVER).replace(/ \S*$/, '[...]') : content
-                    }}
+        ? content.slice(0, MAX_LENGTH_POPOVER).replace(/ \S*$/, '[...]') : content
+}}
                 </a></h2>
         </ion-text>
         <ion-popover :is-open="isOpen" :event="event" @didDismiss="isOpen = false" size="cover">
@@ -75,7 +75,6 @@ export default defineComponent({
                     housesScore: questionsAnswers[qValue - 1].answersAndHouseScore[aValue - 1]
                 })
             }
-            console.log(this.dynamicResponses)
         },
         canOpenPopover(e: Event) {
             if (this.content.length > MAX_LENGTH_POPOVER) {

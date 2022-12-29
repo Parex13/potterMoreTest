@@ -19,31 +19,36 @@
           <ButtonSlide slot="end" id="nextButton" :isNext="true"></ButtonSlide>
         </ion-toolbar>
       </swiper>
+      <ion-modal ref="modal" trigger="resultButton">
+        <ion-content>
+          Votre maison est : {{ house }}
+        </ion-content>
+      </ion-modal>
     </ion-content>
+
     <ion-progress-bar :value="dynamicResponses.length / questionsAnswers.length"></ion-progress-bar>
+
     <ion-footer class="ion-no-border">
       <div class="content">
-        <ion-button expand="block" :disabled="dynamicResponses.length < questionsAnswers.length" id="resultButton">{{
-            resultButtonContent
-        }}</ion-button>
+        <ion-button expand="block" :disabled="dynamicResponses.length < questionsAnswers.length" id="resultButton"
+          @click="submit">{{
+    resultButtonContent
+          }}</ion-button>
       </div>
     </ion-footer>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter, IonProgressBar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter, IonProgressBar, IonModal } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import QuestionAnswers from './QuestionAnswers.vue';
 import ButtonSlide from './ButtonSlide.vue';
 import { appName, questionsAnswers, resultButtonContent, dynamicResponses } from '../common';
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
 // Import Swiper styles
 import 'swiper/css';
-
-
 
 export default defineComponent({
   name: 'HomePage',
@@ -55,6 +60,7 @@ export default defineComponent({
     IonThumbnail,
     IonToolbar,
     IonFooter,
+    IonModal,
     QuestionAnswers,
     IonButton,
     ButtonSlide,
@@ -68,9 +74,38 @@ export default defineComponent({
       questionsAnswers,
       dynamicResponses,
       resultButtonContent,
-      isTestFinish: true,
-      count: 0
+      house: ""
     }
+  },
+  methods: {
+    submit() {
+      const totalScore = {
+        gryffindor: 0,
+        ravenclaw: 0,
+        hufflepuff: 0,
+        slytherin: 0
+      };
+      dynamicResponses.map((answer) => {
+        totalScore.gryffindor += answer.housesScore.gryffindor;
+        totalScore.ravenclaw += answer.housesScore.ravenclaw;
+        totalScore.hufflepuff += answer.housesScore.hufflepuff;
+        totalScore.slytherin += answer.housesScore.slytherin;
+      })
+      let house = "";
+      let maxScore = 0;
+      Object.entries(totalScore).map(([key, value]) => {
+        if (value > maxScore) {
+          maxScore = value;
+          house = key;
+        }
+      })
+      switch (house) {
+        case "gryffindor": this.house = "Gryffondor"; break
+        case "ravenclaw": this.house = "Poufsouffle"; break
+        case "hufflepuff": this.house = "Serdaigle"; break
+        case "slytherin": this.house = "Serpentard"; break
+      }
+    },
   }
 });
 </script>
@@ -103,8 +138,6 @@ ion-content {
     --min-height: 64px;
   }
 }
-
-ion-footer .content {}
 
 ion-button#resultButton {
   --background: #778899;
