@@ -8,8 +8,8 @@
     </ion-header>
 
     <ion-content :scroll-y="false">
-      <swiper>
-        <swiper-slide v-for="(questionAnswers, index) in questionsAnswers" :key=index>
+      <swiper @swiper="onSwiper">
+        <swiper-slide v-for="(questionAnswers, index) in questionsAnswers" :key=componentKey>
           <QuestionAnswers :id="index + 1" :content="questionAnswers.content"
             :answers="questionAnswers.answersAndHouseScore.map((obj) => { return obj.name })" />
         </swiper-slide>
@@ -19,7 +19,7 @@
           <ButtonSlide slot="end" id="nextButton" :isNext="true"></ButtonSlide>
         </ion-toolbar>
       </swiper>
-      <ion-modal ref="modal" trigger="resultButton">
+      <ion-modal ref="modal" trigger="resultButton" @willDismiss="reset">
         <ion-content>
           Votre maison est : {{ house }}
         </ion-content>
@@ -74,10 +74,16 @@ export default defineComponent({
       questionsAnswers,
       dynamicResponses,
       resultButtonContent,
-      house: ""
+      house: "",
+      componentKey: 0,
+      swiper: null
     }
   },
   methods: {
+    //@ts-ignore
+    onSwiper(swiper) {
+      this.swiper = swiper
+    },
     submit() {
       const totalScore = {
         gryffindor: 0,
@@ -106,6 +112,12 @@ export default defineComponent({
         case "slytherin": this.house = "Serpentard"; break
       }
     },
+    reset() {
+      this.dynamicResponses.splice(0)
+      this.componentKey++
+      //@ts-ignore
+      this.swiper.slideTo(0)
+    }
   }
 });
 </script>

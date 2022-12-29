@@ -19,7 +19,8 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'warn',
     'vue/multi-word-component-names': 'off',
     'vue/no-unused-components': 'warn',
-    'vue/no-unused-vars': 'warn'
+    'vue/no-unused-vars': 'warn',
+    'vue/valid-v-for': 'warn'
   },
   overrides: [
     {

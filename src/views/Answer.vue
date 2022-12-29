@@ -1,10 +1,10 @@
 <template>
     <ion-item @touchstart=touchOnHold @touchend=simpleTouch>
-        <ion-radio slot=start :value=answerValue @ionFocus="$emit('updatePick', $event.target.value)" />
+        <ion-radio slot=start :value=answerValue @ionFocus="$emit('updatePick', answerValue)" />
         <ion-label class="ion-text-wrap" :for="'response' + answerValue">
             {{ content.length > MAX_LENGTH_POPOVER
-                    ? content.slice(0, MAX_LENGTH_POPOVER).replace(/ \S*$/, '[...]') : content
-            }}
+        ? content.slice(0, MAX_LENGTH_POPOVER).replace(/ \S*$/, '[...]') : content
+}}
         </ion-label> <br>
     </ion-item>
     <ion-popover :is-open="isOpen" @didDismiss="isOpen = false" :event="event" size="auto">
