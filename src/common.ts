@@ -8,7 +8,7 @@ export const dynamicResponses: {
         slytherin: number
     }
 }[] = [];
-export const appName = "Test Pottermore";
+export const headerName = "Quizz du choixpeau";
 export const resultButtonContent = "Ta maison dans poudlard est... "
 export const questionsAnswers: {
     content: string,

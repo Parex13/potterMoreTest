@@ -3,7 +3,7 @@
     <ion-header class="ion-no-border" :translucent="true">
       <div class="content">
         <ion-thumbnail><img src="assets\icon\choixpeau.png" /></ion-thumbnail>
-        <ion-title>{{ appName }}</ion-title>
+        <ion-title>{{ headerName }}</ion-title>
       </div>
     </ion-header>
 
@@ -21,7 +21,7 @@
       </swiper>
       <ion-modal ref="modal" trigger="resultButton" @willDismiss="reset">
         <ion-content>
-          Votre maison est : {{ house }}
+          <ion-img :src="picHousePath" />
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -40,11 +40,11 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter, IonProgressBar, IonModal } from '@ionic/vue';
+import { IonContent, IonImg, IonHeader, IonPage, IonTitle, IonButton, IonThumbnail, IonToolbar, IonFooter, IonProgressBar, IonModal } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import QuestionAnswers from './QuestionAnswers.vue';
 import ButtonSlide from './ButtonSlide.vue';
-import { appName, questionsAnswers, resultButtonContent, dynamicResponses } from '../common';
+import { headerName, questionsAnswers, resultButtonContent, dynamicResponses } from '../common';
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 // Import Swiper styles
@@ -55,6 +55,7 @@ export default defineComponent({
   components: {
     IonContent,
     IonHeader,
+    IonImg,
     IonPage,
     IonTitle,
     IonThumbnail,
@@ -70,11 +71,12 @@ export default defineComponent({
   },
   data() {
     return {
-      appName,
+      headerName,
       questionsAnswers,
       dynamicResponses,
       resultButtonContent,
       house: "",
+      picHousePath: "",
       componentKey: 0,
       swiper: null
     }
@@ -111,12 +113,13 @@ export default defineComponent({
         case "hufflepuff": this.house = "Serdaigle"; break
         case "slytherin": this.house = "Serpentard"; break
       }
+      this.picHousePath = 'assets\\' + house + '.png'
     },
     reset() {
-      this.dynamicResponses.splice(0)
-      this.componentKey++
       //@ts-ignore
       this.swiper.slideTo(0)
+      this.dynamicResponses.splice(0)
+      this.componentKey++
     }
   }
 });
@@ -139,16 +142,24 @@ ion-header .content {
 
 }
 
+ion-modal {
+  --background: #f8f8ff;
+  --width: 200px;
+  --height: 500px;
+  --border-radius: 30px;
+
+}
+
 ion-content {
   --background: #f8f8ff;
 
   ion-toolbar {
-    width: fix-content;
     --background: #f8f8ff;
     --padding-start: 25%;
     --padding-end: 30%;
     --min-height: 64px;
   }
+
 }
 
 ion-button#resultButton {
