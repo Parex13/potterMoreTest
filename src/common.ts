@@ -74,7 +74,7 @@ export const questionsAnswers: {
             content: "Il y a quatre boîtes devant toi. Laquelle essaies-tu d'ouvrir ?",
             answersAndHouseScore:
                 [
-                    { name: "La petite boîte en écailles de tortue dorée à l'or fin qui semble contenir une minuscule créature qui couine.", gryffindor: 14, ravenclaw: 18, hufflepuff: 46, slytherin: 18 },
+                    { name: "La petite boîte en écailles de tortue dorée à l'or fin qui semble contenir une minuscule créature qui couine", gryffindor: 14, ravenclaw: 18, hufflepuff: 46, slytherin: 18 },
                     { name: "La boîte d'un noir brillant dotée d'une serrure et d'une clé en argent et qui porte une mystérieuse inscription en runes que tu identifies immédiatement comme étant la signature de Merlin", gryffindor: 18, ravenclaw: 20, hufflepuff: 16, slytherin: 46 },
                     { name: "Le coffret en or sculpté, posé sur deux pieds pourvus de griffes, dont l'inscription te prévient qu'il renferme des connaissances secrètes et une tentation irrésistible", gryffindor: 19, ravenclaw: 44, hufflepuff: 21, slytherin: 19 },
                     { name: "La petite boîte en étain, simple et sans prétention, sur laquelle on peut lire une inscription rayée qui dit : 'Je ne m'ouvre que pour celui ou celle qui le mérite'", gryffindor: 49, ravenclaw: 19, hufflepuff: 17, slytherin: 17 }
@@ -105,10 +105,10 @@ export const questionsAnswers: {
             content: "Tu entres dans un jardin enchanté rempli de choses mystérieuses. Laquelle seras-tu le plus curieux d'examiner en premier lieu ?",
             answersAndHouseScore:
                 [
-                    { name: " L'arbre à feuilles argentées chargé de pommes d'or", gryffindor: 17, ravenclaw: 45, hufflepuff: 18, slytherin: 16 },
-                    { name: "Celle qui contient une boisson violette, onctueuse et épaisse, qui dégage un délicieux parfum de chocolat et de prunes", gryffindor: 18, ravenclaw: 15, hufflepuff: 42, slytherin: 17 },
-                    { name: "Celle qui contient un liquide doré et brillant qui fait mal aux yeux et fait voir des taches lumineuses partout", gryffindor: 16, ravenclaw: 22, hufflepuff: 21, slytherin: 46 },
-                    { name: "Celle qui contient un étrange liquide noir qui brille comme de l'encre et dégage des vapeurs provoquant d'étranges hallucinations", gryffindor: 49, ravenclaw: 18, hufflepuff: 19, slytherin: 21 }
+                    { name: "L'arbre à feuilles argentées chargé de pommes d'or", gryffindor: 17, ravenclaw: 45, hufflepuff: 18, slytherin: 16 },
+                    { name: "Les énormes champignons rouges qui semblent discuter ensemble", gryffindor: 18, ravenclaw: 15, hufflepuff: 42, slytherin: 17 },
+                    { name: "Le bassin bouillonnant au fond duquel on aperçoit quelque chose de lumineux qui tourbillonne inlassablement", gryffindor: 16, ravenclaw: 22, hufflepuff: 21, slytherin: 46 },
+                    { name: "La statue d'un vieux sorcier à l'œil étrangement pétillant", gryffindor: 49, ravenclaw: 18, hufflepuff: 19, slytherin: 21 }
                 ],
         },
         {
@@ -116,7 +116,6 @@ export const questionsAnswers: {
             content: "Un troll a fait irruption dans le bureau du directeur de Poudlard. Il est sur le point de pulvériser, écraser et déchirer plusieurs objets et trésors irremplaçables, dont notamment un remède contre la Dragoncelle que le directeur a pratiquement fini de mettre au point, les carnets scolaires de tous les élèves de Poudlard depuis 1 000 ans et un mystérieux livre écrit à la main, comportant d'étranges textes en runes, qui a très probablement appartenu à Merlin. Dans quel ordre tentes-tu de sauver ces objets de la massue du troll si tu en as la possibilité ?",
             answersAndHouseScore:
                 [
-
                     { name: "1) Le remède 2) Les carnets 3) Le livre", gryffindor: 23, ravenclaw: 10, hufflepuff: 22, slytherin: 9 },
                     { name: "1) Les carnets 2) Le livre 3) Le remède", gryffindor: 14, ravenclaw: 11, hufflepuff: 14, slytherin: 31 },
                     { name: "1) Le livre 2) Le remède 3) Les carnets", gryffindor: 12, ravenclaw: 30, hufflepuff: 13, slytherin: 11 },
