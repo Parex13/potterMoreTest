@@ -14,7 +14,7 @@ export default defineComponent({
     name: 'ButtonSlide',
     components: {
         IonIcon,
-        IonButton
+        IonButton,
     },
     props: {
         isNext: Boolean
@@ -32,6 +32,7 @@ export default defineComponent({
 ion-button {
     --background: none;
     --box-shadow: none;
+    --ripple-color: transparent;
     --color: #000000;
     height: 64px;
     width: auto;
